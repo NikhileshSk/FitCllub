@@ -1,0 +1,29 @@
+
+body { 
+    background-image: url("gym.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+}
+.container-box {
+background-color: rgba(255, 255, 255, 0.7); /* Background box color with transparency */
+padding: 20px; /* Add padding for spacing */
+border-radius: 10px; /* Add rounded corners to the box */
+max-width: 800px; /* Limit the width of the box */
+margin: 0 auto; /* Center the box horizontally */
+box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
+margin-bottom: 20px;
+}
+.parent-container {
+position: fixed;
+height: 100vh; /* Ensure the parent container takes the full height of the viewport */
+}
+.container{
+position:absolute;
+top: 110%;
+left: 30%;
+transform: translate(-50%, -50%);
+}
+.form-control {
+width: 135%;
+}

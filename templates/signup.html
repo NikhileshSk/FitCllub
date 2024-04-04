@@ -1,0 +1,182 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Registration</title>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+        <link href="{% static "signup.css" %}" rel="stylesheet">
+        
+        <link rel="icon" type="image/png" href="{% static 'companylogo.jpg' %}">
+        <script src="//code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+    </head>
+<body>
+    
+
+    <div class="container">
+        <div class="container-box">
+        <form class="form-horizontal" role="form" method="POST" >
+        {% csrf_token %}
+            <h2>Registration</h2>
+            <div class="form-group">
+                <label for="firstName" class="col-sm-3 control-label">First Name*</label>
+                <div class="col-sm-9">
+                    <input name="fname" type="text" id="firstName" placeholder="First Name" class="form-control" autofocus required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="lastName" class="col-sm-3 control-label">Last Name*</label>
+                <div class="col-sm-9">
+                    <input name="lname" type="text" id="lastName" placeholder="Last Name" class="form-control" autofocus required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="col-sm-3 control-label">Email* </label>
+                <div class="col-sm-9">
+                    <input type="email" id="email" placeholder="Email" class="form-control" name= "email" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="username" class="col-sm-3 control-label">Username* </label>
+                <div class="col-sm-9">
+                    <input type="username" id="username" placeholder="Username" class="form-control" name= "username" required>
+                </div>
+            </div>
+            <div class="form-group" onsubmit="return checkPasswords()">
+                <label for="password" class="col-sm-3 control-label">Password*</label>
+                <div class="col-sm-9">
+                    <input name="pass1" type="password" id="password" placeholder="Password" class="form-control" required>
+                    <input type="checkbox" onclick="togglePassword('password')"> Show Password
+                </div>
+            </div>
+            {% comment %} <div class="form-group">
+                <label for="confirmPassword" class="col-sm-3 control-label">Confirm Password*</label>
+                <div class="col-sm-9">
+                    <input name="pass2" type="password" id="confirmPassword" placeholder="Confirm Password" class="form-control" required>
+                    <input type="checkbox" onclick="togglePassword('confirmPassword')"> Show Password
+                </div>
+            </div> {% endcomment %}
+            <div class="form-group">
+                <label for="birthDate" class="col-sm-3 control-label">Date of Birth*</label>
+                <div class="col-sm-9">
+                    <input name="dob" type="date" id="birthDate" class="form-control" required>
+                </div>
+            </div>
+{% comment %} 
+            <div class="form-group">
+                <label for="phoneNumber" class="col-sm-3 control-label">Phone number</label>
+                <div class="col-sm-9">
+                    <input name="phoneNumber" type="tel" id="phoneNumber" placeholder="Phone Number" class="form-control">
+                    <span class="help-block">Your phone number won't be disclosed anywhere</span>
+                </div>
+            </div> {% endcomment %}
+            <div class="form-group">
+                    <label for="Height" class="col-sm-3 control-label">Height* </label>
+                <div class="col-sm-9">
+                    <input name="height" type="number" id="height" placeholder="Please write your height in centimetres" class="form-control" required>
+                </div>
+            </div>
+             <div class="form-group">
+                    <label for="weight" class="col-sm-3 control-label">Weight* </label>
+                <div class="col-sm-9">
+                    <input name="weight" type="number" id="weight" placeholder="Please write your weight in kilograms" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="age" class="col-sm-3 control-label">Age* </label>
+            <div class="col-sm-9">
+                <input name="age" type="number" id="age" placeholder="Please write your age" class="form-control" required>
+            </div>
+        </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">Gender</label>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="radio-inline">
+                                <input type="radio" id="femaleRadio" value="Female" name="gender">Female
+                            </label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="radio-inline">
+                                <input type="radio" id="maleRadio" value="Male" name="gender">Male
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- /.form-group -->
+            <div class="form-group">
+                <div class="col-sm-9 col-sm-offset-3">
+                    <span class="help-block">*Required fields</span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+          
+        </form>
+    </div>
+    </div>
+    <script>
+        function togglePassword(inputId) {
+            var passwordInput = document.getElementById(inputId);
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+            } else {
+                passwordInput.type = "password";
+            }
+        }
+
+        function checkPasswords() {
+          let password = document.getElementById('password').value;
+          let confirm_password = document.getElementById('confirm_password').value;
+          cosole.log("password:",password,'\n',"confirmPassword:",confirmPassword);
+          let message = document.getElementById("message");
+          if(password.length !=0){
+            if (password == confirm_password) {
+                message.textContent = "Passwords match";
+                message.style.backgroundColor = "#1dcd59";
+          }
+          else{
+            message.textContent = "Passwords dont match";
+            message.style.backgroundColor = "#ff4d4d";
+            
+        }
+    }
+    else{
+        alert("Passwords cant be empty!");
+        message.textContent = "";
+    }
+    }
+        function validateDateOfBirth() {
+            var birthDate = new Date(document.getElementById("birthDate").value);
+            var currentDate = new Date();
+            
+            if (isNaN(birthDate.getTime())) {
+                alert("Please enter a valid date of birth.");
+                return false;
+            }
+
+            if (birthDate > currentDate) {
+                alert("Date of birth cannot be in the future.");
+                return false;
+            }
+
+            return true;
+        }
+        function validatePhoneNumber() {
+            var phoneNumber = document.getElementById("phoneNumber").value.trim();
+            if (phoneNumber.length !== 10 || isNaN(phoneNumber)) {
+                alert("Please enter a valid 10-digit phone number.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+    
+</body>
+</html>
